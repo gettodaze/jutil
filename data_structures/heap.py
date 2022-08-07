@@ -54,7 +54,7 @@ class MinHeap(tp.Generic[K]):
         parent_idx = self.get_parent_idx(cur_idx)
 
         # bubble up
-        while parent_idx:
+        while parent_idx is not None:
             if self.arr[parent_idx].key <= compare:
                 break
             # fmt: off
@@ -67,7 +67,7 @@ class MinHeap(tp.Generic[K]):
         if not self.arr:
             raise RuntimeError("Cannot pop empty heap")
         if len(self.arr) == 1:
-            return self.arr.pop()
+            return self.arr.pop().key
 
         ret = self.arr[0]
         self.arr[0] = self.arr.pop()
