@@ -21,7 +21,7 @@ class MinHeap(tp.Generic[K]):
     ) -> None:
         self.arr: list[_HeapElement[K]] = []
         self.key = key
-        self.max_size = None
+        self.max_size = max_size
 
     @staticmethod
     def get_parent_idx(idx: int) -> int | None:
