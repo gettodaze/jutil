@@ -1,5 +1,5 @@
-alias jjgit_changed_files='git diff --name-only default --diff-filter=d'
-alias jjgit_changed_pyfiles='git diff --name-only default --diff-filter=d "*.py"'
+alias jjgit_changed_files='git diff --name-only main --diff-filter=d'
+alias jjgit_changed_pyfiles='git diff --name-only main --diff-filter=d "*.py"'
 alias jjgit_code_changed_files='code `jjgit_changed_files`'
 alias jjgit_changed_tests='jjgit_changed_pyfiles | grep test'
 alias jjgit_pylint='pylint `jjgit_changed_pyfiles`'
@@ -20,7 +20,7 @@ alias reset_audio='pulseaudio -k && sudo alsa force-reload'
 alias jjgit_revert1='git revert HEAD~1..HEAD --no-commit'
 alias contents_by_size='du -hd 1| sort -h'
 alias jjtree="tree -I '_*|*.pyc'"
-alias jjtom_git_prune='git branch --merged| egrep -v "(^\*|default|master|main)" | xargs git branch -d'
+alias jjtom_git_prune='git branch --merged| egrep -v "(^\*|main|master|main)" | xargs git branch -d'
 alias jjcurrent_dir='basename `pwd`'
 alias jjzip_current_dir='zip -r `jjcurrent_dir` .'
 alias jjgrep_pyfiles_nameonly='grep -irl --include \*.py'
@@ -48,11 +48,11 @@ function jjfile_header {
     head -n1 $1 | tr '\t' '\n'
 }
 
-function jjgit_merge_default {
-    git checkout default
+function jjgit_merge_main {
+    git checkout main
     git pull
     git checkout -
-    git merge default
+    git merge main
 }
 
 parse_git_branch() {
