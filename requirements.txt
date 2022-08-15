@@ -12,6 +12,7 @@ EbookLib==0.17.1
 entrypoints==0.3
 facebook-sdk==3.1.0
 fonttools==4.28.5
+greenlet==1.1.2
 idna==3.3
 iniconfig==1.1.1
 ipykernel==6.5.0
@@ -48,6 +49,7 @@ pyzmq==22.3.0
 requests==2.26.0
 six==1.16.0
 soupsieve==2.3.1
+SQLAlchemy==1.4.40
 toml==0.10.2
 tomli==2.0.1
 tornado==6.1
