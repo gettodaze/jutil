@@ -1,3 +1,9 @@
+"""References:
+https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html
+https://docs.sqlalchemy.org/en/14/orm/tutorial.html
+https://docs.sqlalchemy.org/en/14/core/engines.html#sqlite
+"""
+
 from sqlalchemy import Column, ForeignKey, Integer, Table, create_engine
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
@@ -17,6 +23,7 @@ class Child(Base):
     __tablename__ = "child"
     id = Column(Integer, primary_key=True)
     parent_id = Column(Integer, ForeignKey("parent.id"))
+    parent = relationship("Parent", back_populates="children")
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(id={self.id}, parent_id={self.parent_id})"
