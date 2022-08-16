@@ -1,6 +1,6 @@
-# .env folder
 /.env-jutil
 *.db
+/django_site/config.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
