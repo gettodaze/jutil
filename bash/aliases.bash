@@ -25,6 +25,7 @@ alias jjcurrent_dir='basename `pwd`'
 alias jjzip_current_dir='zip -r `jjcurrent_dir` .'
 alias jjgrep_pyfiles_nameonly='grep -irl --include \*.py'
 alias start_postgres='sudo service postgresql start'
+alias jjpgcli_jutil='pgcli -d jutil -u mccloskey'
 function lbc {
     libreoffice --calc $1 2>/dev/null 1>&2 &
 }
