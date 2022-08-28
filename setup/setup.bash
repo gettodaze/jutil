@@ -2,6 +2,7 @@ set -e
 python -m venv .env-jutil
 . .env-jutil/bin/activate
 pwd > .env-jutil/lib/python3.8/site-packages/jutil.pth
+pip install wheel
 pip install -r requirements.txt
 
 #### https://www.postgresql.org/download/linux/ubuntu/
