@@ -5,7 +5,7 @@ from renraku.polls.models import Question
 
 
 # Create your views here.
-def index(request: HttpResponse) -> HttpResponse:
+def index(_: HttpResponse) -> HttpResponse:
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
     questions = ", ".join([q.question_text for q in latest_question_list])
 
