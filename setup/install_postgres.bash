@@ -15,5 +15,7 @@ sudo apt-get -y install postgresql
 # start postgres
 sudo service postgresql start
 # create mccloskey user
-sudo -u postgres -c "createuser mccloskey --createdb"
-# sudo -u postgres psql -c "alter user mccloskey with createdb"
+sudo su postgres -c "createuser mccloskey --createdb"
+# sudo su postgres psql -c "alter user mccloskey with createdb"
+sudo su postgres -c "createuser renraku"
+# sudo su postgres psql -c "alter user renraku with password 'mypassword'"
