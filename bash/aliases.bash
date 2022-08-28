@@ -24,6 +24,7 @@ alias jjtom_git_prune='git branch --merged| egrep -v "(^\*|main|master|main)" | 
 alias jjcurrent_dir='basename `pwd`'
 alias jjzip_current_dir='zip -r `jjcurrent_dir` .'
 alias jjgrep_pyfiles_nameonly='grep -irl --include \*.py'
+alias start_postgres='sudo service postgresql start'
 function lbc {
     libreoffice --calc $1 2>/dev/null 1>&2 &
 }
