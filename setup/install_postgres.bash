@@ -12,6 +12,10 @@ sudo apt-get update
 # If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
 sudo apt-get -y install postgresql
 
+# https://stackoverflow.com/questions/18664074/getting-error-peer-authentication-failed-for-user-postgres-when-trying-to-ge
+# sudo nano /etc/postgresql/12/main/pg_hba.conf
+# sudo nano /etc/postgresql/14/main/pg_hba.conf
+
 # start postgres
 sudo service postgresql start
 # create mccloskey user

@@ -80,7 +80,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "jutil",
-        "USER": "mccloskey",
+        "USER": config.RENRAKU_USER,
         "PASSWORD": config.RENRAKU_PASS,
         "HOST": "127.0.0.1",
         "PORT": "5432",
