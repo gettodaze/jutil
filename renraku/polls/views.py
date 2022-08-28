@@ -1,31 +1,57 @@
-import django
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.template import loader
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views import generic
 from renraku.polls.models import Choice, Question
 
 
-# Create your views here.
-def index(request: HttpRequest) -> HttpResponse:
-    latest_question_list = Question.objects.order_by("-pub_date")[:5]
-    template = loader.get_template("polls/index.html")
-    context = {
-        "latest_question_list": latest_question_list,
-    }
-    return HttpResponse(template.render(context, request))
+class QuestionCreateView(generic.edit.CreateView):
+    model = Question
+    fields = ["question_text"]
 
 
-def detail(_: HttpRequest, question_id: int) -> HttpResponse:
-    return HttpResponse(f"question {question_id} detail.")
+class QuestionUpdateView(generic.edit.UpdateView):
+    model = Question
+    fields = ["question_text"]
 
 
-def results(_: HttpRequest, question_id: int) -> HttpResponse:
-    return HttpResponse(f"question {question_id} results.")
+class QuestionDeleteView(generic.edit.DeleteView):
+    model = Question
+    success_url = reverse_lazy("polls:index")
 
 
-def vote(_: HttpRequest, question_id: int) -> HttpResponse:
-    return HttpResponse(f"question {question_id} voting.")
+class ChoiceCreateView(generic.edit.CreateView):
+    model = Choice
+    fields = ["choice_text", "question"]
+
+
+class ChoiceUpdateView(generic.edit.UpdateView):
+    model = Choice
+    fields = ["choice_text", "question", "votes"]
+
+
+class ChoiceDeleteView(generic.edit.DeleteView):
+    model = Choice
+    success_url = reverse_lazy("polls:index")
+
+
+class IndexView(generic.ListView):
+    template_name = "polls/index.html"
+    context_object_name = "latest_question_list"
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Question.objects.order_by("-pub_date")[:5]
+
+
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = "polls/detail.html"
+
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = "polls/results.html"
 
 
 def vote(request, question_id):
