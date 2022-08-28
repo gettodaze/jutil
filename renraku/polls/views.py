@@ -5,4 +5,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request: HttpRequest) -> HttpResponse:
-    return HttpResponse("index content! Hello AD!")
+    return HttpResponse("index content! Hello AD! Hello Dausie!!!! ")
