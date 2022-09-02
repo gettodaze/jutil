@@ -27,6 +27,7 @@ alias jjgrep_pyfiles_nameonly='grep -irl --include \*.py'
 alias start_postgres='sudo service postgresql start'
 alias jjpgcli_jutil='pgcli -d jutil -u mccloskey'
 alias restart_postgres='sudo service postgresql restart'
+alias curl_json="curl -H 'Accept: application/json; indent=4' -w '\n'"
 function lbc {
     libreoffice --calc $1 2>/dev/null 1>&2 &
 }
