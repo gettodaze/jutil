@@ -7,12 +7,18 @@ from renraku.polls.models import Choice, Question
 
 class QuestionCreateView(generic.edit.CreateView):
     model = Question
-    fields = ["question_text"]
+    fields = ["question_text", "pub_date"]
+
+    def get_success_url(self):
+        return reverse("polls:index")
 
 
 class QuestionUpdateView(generic.edit.UpdateView):
     model = Question
     fields = ["question_text"]
+
+    def get_success_url(self):
+        return reverse("polls:index")
 
 
 class QuestionDeleteView(generic.edit.DeleteView):
@@ -24,10 +30,16 @@ class ChoiceCreateView(generic.edit.CreateView):
     model = Choice
     fields = ["choice_text", "question"]
 
+    def get_success_url(self):
+        return reverse("polls:index")
+
 
 class ChoiceUpdateView(generic.edit.UpdateView):
     model = Choice
     fields = ["choice_text", "question", "votes"]
+
+    def get_success_url(self):
+        return reverse("polls:index")
 
 
 class ChoiceDeleteView(generic.edit.DeleteView):
