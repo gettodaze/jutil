@@ -18,3 +18,6 @@ sudo apt-get update
 # Install the latest version of PostgreSQL.
 # If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
 sudo apt-get -y install postgresql
+
+# for react app
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
