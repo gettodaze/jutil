@@ -1,25 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
 
+async function TodoList() {
+  fetch('http://127.0.0.1:8001/todo/api/todos').then(
+    resp => console.log(resp)
+  )
+}
+
 function App() {
+  TodoList()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>Todos</p>
+      <form>
+        <label>
+          Add Todo:
+    <input type="text" name="name" />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
     </div>
   );
 }
-
 export default App;
