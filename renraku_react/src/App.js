@@ -20,13 +20,14 @@ class TodoList extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://127.0.0.1:8001/todo/api/todos')
+    console.log("Component Mounted")
+    fetch('http://127.0.0.1:8000/todo/api/todos')
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.items
+            items: result
           });
         },
         // Note: it's important to handle errors here
@@ -43,6 +44,7 @@ class TodoList extends React.Component {
 
   render() {
     const { error, isLoaded, items } = this.state;
+    console.log(this.state)
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -55,14 +57,10 @@ class TodoList extends React.Component {
   }
 }
 
-const root = ReactDOM.client.createRoot(
-  document.getElementById('root')
-);
-
 function App() {
   return (
     <div className="App">
-      {root.render(TodoList)}
+      <TodoList />
       <form>
         <label>
           Add Todo:
