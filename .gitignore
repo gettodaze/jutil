@@ -1,6 +1,7 @@
 /.env-jutil
 *.db
 config.py
+node_modules/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
