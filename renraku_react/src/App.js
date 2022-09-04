@@ -5,7 +5,7 @@ var ReactDOM = require('react-dom')
 function formatTodo(todo) {
   // note: we are adding a key prop here to allow react to uniquely identify each
   // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
-  return <><input type="checkbox" key={todo.id} checked={todo.completed}></input><label>{todo.description}</label></>
+  return <p><input type="checkbox" key={todo.id} checked={todo.completed}></input><label>{todo.description}</label></p>
 }
 
 
@@ -51,10 +51,24 @@ class TodoList extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <ul>{items.map(formatTodo)}</ul>
+        <ul align="left">{items.map(formatTodo)}</ul>
       );
     }
   }
+}
+
+function newTodo(title) {
+  fetch('http://127.0.0.1:8000/todo/api/todos',
+    {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: title
+      })
+    });
 }
 
 function App() {
@@ -64,7 +78,7 @@ function App() {
       <form>
         <label>
           Add Todo:
-    <input type="text" name="name" />
+    <input type="text" name="name" onSubmit="newTodo()" />
         </label>
         <input type="submit" value="Submit" />
       </form>
