@@ -3,12 +3,10 @@ from renraku_cli.core import todo_task
 
 def test_get_task():
     result = todo_task.get_task(1)
-    assert result == {
-        "id": 1,
-        "title": "First task",
-        "description": "Some description",
-        "completed": True,
-    }
+    expected = todo_task.Task(
+        title="First task", description="Update", completed=True, task_id=1
+    )
+    assert result == expected
 
 
 def test_get_all_tasks():
