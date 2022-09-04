@@ -1,128 +1,88 @@
-// https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react#step-3-setting-up-the-frontend
+import './App.css';
+import React from 'react';
+var ReactDOM = require('react-dom')
 
-import React, { Component } from "react";
+function formatTodo(todo) {
+  // note: we are adding a key prop here to allow react to uniquely identify each
+  // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
+  return <p><input type="checkbox" key={todo.id} checked={todo.completed}></input><label>{todo.description}</label></p>
+}
 
-const todoItems = [
-  {
-    id: 1,
-    title: "Go to Market",
-    description: "Buy ingredients to prepare dinner",
-    completed: true,
-  },
-  {
-    id: 2,
-    title: "Study",
-    description: "Read Algebra and History textbook for the upcoming test",
-    completed: false,
-  },
-  {
-    id: 3,
-    title: "Sammy's books",
-    description: "Go to library to return Sammy's books",
-    completed: true,
-  },
-  {
-    id: 4,
-    title: "Article",
-    description: "Write article on how to use Django with React",
-    completed: false,
-  },
-];
 
-class App extends Component {
+class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      viewCompleted: false,
-      todoList: todoItems,
+      error: null,
+      isLoaded: false,
+      items: []
     };
   }
 
-  displayCompleted = (status) => {
-    if (status) {
-      return this.setState({ viewCompleted: true });
-    }
-
-    return this.setState({ viewCompleted: false });
-  };
-
-  renderTabList = () => {
-    return (
-      <div className="nav nav-tabs">
-        <span
-          className={this.state.viewCompleted ? "nav-link active" : "nav-link"}
-          onClick={() => this.displayCompleted(true)}
-        >
-          Complete
-        </span>
-        <span
-          className={this.state.viewCompleted ? "nav-link" : "nav-link active"}
-          onClick={() => this.displayCompleted(false)}
-        >
-          Incomplete
-        </span>
-      </div>
-    );
-  };
-
-  renderItems = () => {
-    const { viewCompleted } = this.state;
-    const newItems = this.state.todoList.filter(
-      (item) => item.completed == viewCompleted
-    );
-
-    return newItems.map((item) => (
-      <li
-        key={item.id}
-        className="list-group-item d-flex justify-content-between align-items-center"
-      >
-        <span
-          className={`todo-title mr-2 ${this.state.viewCompleted ? "completed-todo" : ""
-            }`}
-          title={item.description}
-        >
-          {item.title}
-        </span>
-        <span>
-          <button
-            className="btn btn-secondary mr-2"
-          >
-            Edit
-          </button>
-          <button
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
-        </span>
-      </li>
-    ));
-  };
+  componentDidMount() {
+    console.log("Component Mounted")
+    fetch('http://127.0.0.1:8000/todo/api/todos')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
 
   render() {
-    return (
-      <main className="container">
-        <h1 className="text-white text-uppercase text-center my-4">Todo app</h1>
-        <div className="row">
-          <div className="col-md-6 col-sm-10 mx-auto p-0">
-            <div className="card p-3">
-              <div className="mb-4">
-                <button
-                  className="btn btn-primary"
-                >
-                  Add task
-                </button>
-              </div>
-              {this.renderTabList()}
-              <ul className="list-group list-group-flush border-top-0">
-                {this.renderItems()}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </main>
-    );
+    const { error, isLoaded, items } = this.state;
+    console.log(this.state)
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <ul align="left">{items.map(formatTodo)}</ul>
+      );
+    }
   }
 }
 
+function newTodo(title) {
+  fetch('http://127.0.0.1:8000/todo/api/todos',
+    {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: title
+      })
+    });
+}
+
+function App() {
+  return (
+    <div className="App">
+      <TodoList />
+      <form>
+        <label>
+          Add Todo:
+    <input type="text" name="name" onSubmit="newTodo()" />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  );
+}
 export default App;
