@@ -22,3 +22,9 @@ sudo apt-get -y install postgresql
 # for react app
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
 nvm install --lts
+
+# others
+sudo apt install fd-find
+sudo apt install ripgrep
+sudo apt install fzf
+sudo apt install jq
